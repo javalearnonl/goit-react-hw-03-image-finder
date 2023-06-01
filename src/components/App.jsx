@@ -19,6 +19,7 @@ const App = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [hasError, setHasError] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [totalHits, setTotalHits] = useState(0);
 
   useEffect(() => {
     if (query === '') return;
@@ -37,6 +38,7 @@ const App = () => {
         } else {
           setImages(prevImages => [...prevImages, ...response.data.hits]);
           setHasError(false);
+          setTotalHits(response.data.totalHits);
         }
       } catch (error) {
         console.error(error);
@@ -78,6 +80,8 @@ const App = () => {
     setSelectedImage(null);
   };
 
+  const showLoadMoreButton = totalHits > images.length;
+
   return (
     <div>
       <Searchbar onSubmit={handleSearchSubmit} />
@@ -86,7 +90,7 @@ const App = () => {
       {!hasError && images.length > 0 && (
         <ImageGallery images={images} onImageClick={handleImageClick} />
       )}
-      {!hasError && images.length > 0 && !isLoading && (
+      {showLoadMoreButton && (
         <Button onClick={handleLoadMoreClick} disabled={isLoadingMore}>
           {isLoadingMore ? <Loader /> : 'Load More'}
         </Button>

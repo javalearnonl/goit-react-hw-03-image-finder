@@ -132,6 +132,8 @@ img {
   list-style: none;
   margin-left: auto;
   margin-right: auto;
+  padding-bottom: 30px;
+  padding-top: 20px;
   /* margin-top: 20px; */
 }
 
@@ -152,7 +154,7 @@ img {
 }
 
 .photo-small:hover {
-  transform: scale(1.03);
+  transform: scale(1.01);
   cursor: zoom-in;
 }
 
